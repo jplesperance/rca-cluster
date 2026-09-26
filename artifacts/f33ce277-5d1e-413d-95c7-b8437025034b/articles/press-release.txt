@@ -1,0 +1,1 @@
+PRIMARY-TIER FICTION: Fictioncorp disclosed a security incident on 2026-08-30 affecting approximately 4 million records. Initial access attributed by the vendor to credential stuffing.

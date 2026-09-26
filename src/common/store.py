@@ -7,8 +7,7 @@ Never overwrite a checkpoint. Sessions are resumable by loading latest state.
 from __future__ import annotations
 import json
 from pathlib import Path
-from src.common.models import SessionState, ResultMessage
-
+from src.common.models import SessionState, ResultMessage, _now
 ARTIFACTS_ROOT = Path("/app/artifacts")
 STATE_ROOT = Path("/app/state")
 
@@ -46,7 +45,7 @@ class SessionStore:
         ck = d / "checkpoints"
         ck.mkdir(parents=True, exist_ok=True)
         state.checkpoint_seq += 1
-        state.updated_at = state.__class__.().__dict__.get("updated_at") or state.updated_at
+        state.updated_at = _now()
         payload = state.model_dump(mode="json")
         (d / "state.json").write_text(json.dumps(payload, indent=2))
         (ck / f"{state.checkpoint_seq:04d}_{node_name}.json").write_text(

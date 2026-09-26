@@ -1,0 +1,41 @@
+{
+  "intake": {
+    "session_id": "4a69064f-3dbb-4e3d-940e-d94c5fc3b203",
+    "mode": "interactive",
+    "created_at": "2026-09-17T04:36:08+00:00",
+    "question": "Root cause analysis of the Sprint-1 fictional entity breach",
+    "subject": {
+      "entity": "Fictioncorp",
+      "incident_type": "breach",
+      "date_range": null,
+      "known_facts": [
+        "Disclosure 2026-08-30",
+        "Claimed 4M records"
+      ],
+      "claimed_narratives": [
+        {
+          "claim": "credential stuffing",
+          "source_class": "vendor",
+          "confidence": "low"
+        }
+      ]
+    },
+    "constraints": {
+      "max_cost_usd": 15.0,
+      "max_recon_passes": 3,
+      "replan_cycles_allowed": 2
+    }
+  },
+  "graph_node": "RECON_PENDING",
+  "ledger": {
+    "tokens_used": 0,
+    "cost_usd": 0.0
+  },
+  "tasks_dispatched": {
+    "adb404cb-2d24-4a1c-ae61-41e232559d16": "dispatched"
+  },
+  "source_index": {},
+  "source_counter": 0,
+  "checkpoint_seq": 2,
+  "updated_at": "2026-09-17T04:36:08+00:00"
+}

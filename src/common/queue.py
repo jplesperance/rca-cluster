@@ -25,22 +25,30 @@ class Bus:
         return self.r.xadd(stream, {"body": json.dumps(payload)})
 
     def read_results(self, session_id: str, timeout_ms: int = 120000):
-        """Blocking read of the results stream, returning messages belonging
-        to the given session. Raises TimeoutError on silence."""
+        """Blocking read of the results stream, returning the first message
+        belonging to the given session. Raises TimeoutError on silence.
+        Scans from last-read position so prior sessions' results are skipped."""
+        import time
         last_id = "0"
-        deadline = timeout_ms
+        deadline = time.monotonic() + timeout_ms / 1000.0
         while True:
-            resp = self.r.xread({RESULTS_STREAM: last_id}, count=10, block=min(deadline, 5000))
+            remaining_ms = int((deadline - time.monotonic()) * 1000)
+            if remaining_ms <= 0:
+                raise TimeoutError(f"No results for {session_id} within {timeout_ms}ms")
+            resp = self.r.xread(
+                {RESULTS_STREAM: last_id},
+                count=10,
+                block=max(min(remaining_ms, 5000), 1),
+            )
             if not resp:
-                raise TimeoutError(f"No results within {timeout_ms}ms")
+                raise TimeoutError(f"No results for {session_id} within {timeout_ms}ms")
             entries = resp[0][1]
             last_id = entries[-1][0]
             for _id, fields in entries:
                 body = json.loads(fields["body"])
                 if body.get("session_id") == session_id:
                     return _id, body
-                if last_id >= b"0":  # continue scanning past other sessions' results
-                    continue
+            # No match in this batch — loop and keep scanning from last_id.
 
     def consume_forever(self, stream: str, group: str, handler: Callable[[dict], None]):
         """Worker-side loop: consumer-group read -> handler -> ack."""

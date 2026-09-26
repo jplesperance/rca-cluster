@@ -9,10 +9,19 @@ unchanged — that is the point of Sprint 1.
 """
 from __future__ import annotations
 import sys
+import argparse
 from src.common.models import IntakePayload, TaskMessage, ResultMessage, SessionState
 from src.common.queue import Bus, task_stream
 from src.common.store import SessionStore, ArtifactStore
 
+def parse_args():
+    p = argparse.ArgumentParser()
+    p.add_argument("--question", required=True)
+    p.add_argument("--entity", required=True)
+    p.add_argument("--role", default="recon.web")
+    p.add_argument("--directive", default=None, help="Defaults to the question text")
+    p.add_argument("--source-class", default="general_web")
+    return p.parse_args()
 
 def demo_intake() -> IntakePayload:
     return IntakePayload(
@@ -39,9 +48,9 @@ def main() -> int:
 
     task = TaskMessage(
         session_id=intake.session_id,
-        addressee_role="recon.stub",
-        directive="Retrieve public statements regarding Fictioncorp breach",
-        source_class="general_web",
+        addressee_role=args.role,
+        directive=args.directive or args.question,
+        source_class=args.source_class,
         parent_hypothesis="H0",
     )
     state.graph_node = "RECON_PENDING"
