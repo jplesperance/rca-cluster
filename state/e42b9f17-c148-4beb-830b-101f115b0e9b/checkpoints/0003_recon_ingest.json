@@ -1,0 +1,97 @@
+{
+  "intake": {
+    "session_id": "e42b9f17-c148-4beb-830b-101f115b0e9b",
+    "mode": "interactive",
+    "created_at": "2026-09-27T00:20:09+00:00",
+    "question": "Root cause analysis of the Change Healthcare ransomware breach",
+    "subject": {
+      "entity": "Change Healthcare / UnitedHealth Group",
+      "incident_type": "breach",
+      "date_range": null,
+      "known_facts": [],
+      "claimed_narratives": []
+    },
+    "constraints": {
+      "max_cost_usd": 15.0,
+      "max_recon_passes": 3,
+      "replan_cycles_allowed": 2
+    }
+  },
+  "graph_node": "RECON_COMPLETE",
+  "ledger": {
+    "tokens_used": 3757,
+    "cost_usd": 0.01
+  },
+  "tasks_dispatched": {
+    "752f0cc9-eecb-4c48-b63f-4353b52cef35": "complete"
+  },
+  "source_index": {
+    "S-001-752f": {
+      "url": "https://threathuntlabs.com/learn-known-cyber-attacks/change-healthcare-(2024).html",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-01.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-002-752f": {
+      "url": "https://www.nixonpeabody.com/insights/alerts/2025/11/12/change-healthcare-cybersecurity-breach-impact-on-healthcare-providers",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-02.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-003-752f": {
+      "url": "https://www.security.org/identity-theft/breach/change-healthcare",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-03.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-004-752f": {
+      "url": "https://securityblueprints.io/data-breaches/change-healthcare-february-2024-data-breach",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-04.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-005-752f": {
+      "url": "https://nhimg.org/community/non-human-identity-management-general-discussions/lessons-from-the-change-healthcare-breach",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-05.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-006-752f": {
+      "url": "https://www.hipaajournal.com/change-healthcare-responding-to-cyberattack",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-06.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-007-752f": {
+      "url": "https://underthebreach.medium.com/single-citrix-credential-results-in-22-000-000-ransom-to-change-healthcare-403580703aa5",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-07.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    },
+    "S-008-752f": {
+      "url": "https://www.reuters.com/technology/cybersecurity/unitedhealth-hackers-took-advantage-citrix-vulnerabilty-break-ceo-says-2024-04-29",
+      "source_class": "general_web",
+      "credibility_tier": "secondary",
+      "content_ref": "artifacts/e42b9f17-c148-4beb-830b-101f115b0e9b/web/change-healthcare-february-2024-ransomware-attac-08.txt",
+      "retrieved_at": "2026-09-27T00:20:13+00:00",
+      "from_task": "752f0cc9-eecb-4c48-b63f-4353b52cef35"
+    }
+  },
+  "source_counter": 8,
+  "checkpoint_seq": 3,
+  "updated_at": "2026-09-27T00:20:13+00:00"
+}

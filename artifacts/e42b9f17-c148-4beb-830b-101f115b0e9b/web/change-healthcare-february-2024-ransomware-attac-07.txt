@@ -1,0 +1,6 @@
+source_url: https://underthebreach.medium.com/single-citrix-credential-results-in-22-000-000-ransom-to-change-healthcare-403580703aa5
+title: Single Citrix Compromised Credential Results in $22000000 ...
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:20:13+00:00
+---
+In late February 2024 Change Healthcare suffered a devastating ransomware attack which led to major disruptions to the company's platform,

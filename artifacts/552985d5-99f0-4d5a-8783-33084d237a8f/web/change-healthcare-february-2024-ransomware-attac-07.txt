@@ -1,0 +1,20 @@
+source_url: https://www.techtarget.com/cybersecurity/news/366582824/Change-Healthcare-breached-via-Citrix-portal-with-no-MFA
+title: Change Healthcare breached via Citrix portal with no MFA | TechTarget
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:35:33+00:00
+---
+The advisory connected an October attack against aviation giant Boeing to Citrix Bleed. Boeing confirmed that threat actors had exploited CVE-2023-4966 to gain initial access to its parts and distribution business.
+
+Then, in January, Citrix disclosed that two new zero-day vulnerabilities in the same products were under attack, though attribution was not provided. In addition, insurance provider Coalition published its "Cyber Threat Index 2024" in February that highlighted the substantial fallout Citrix Bleed victims faced.
+
+However, the attack on Change Healthcare apparently did not involve the exploitation of Citrix flaws, as the attackers simply used compromised credentials to gain an initial foothold in the company's network. [...] Getty Images/iStockphoto
+
+# Change Healthcare breached via Citrix portal with no MFA
+
+## UnitedHealth Group CEO Andrew Witty's opening statement for Wednesday's congressional hearing shed more light on the ransomware attack against Change Healthcare.
+
+Arielle Waldman
+
+UnitedHealth Group confirmed that the BlackCat/Alphv ransomware group breached Change Healthcare in February by using compromised credentials for a Citrix remote access portal that did not have multifactor authentication enabled. [...] On Feb. 21, Change Healthcare disclosed that it was experiencing network disruptions that subsequently affected patients, healthcare providers and pharmacists for months. Since then, UnitedHealth confirmed that Alphv/BlackCat was behind the attack and that the company paid a ransom. UnitedHealth also acknowledged that threat actors had obtained sensitive data.
+
+Witty's opening statement for the hearing shed more light on the attack timeline and vector, though many questions remain.

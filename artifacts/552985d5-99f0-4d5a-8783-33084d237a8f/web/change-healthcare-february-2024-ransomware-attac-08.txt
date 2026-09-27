@@ -1,0 +1,13 @@
+source_url: https://vipre.com/blog/change-healthcare-data-breach-security-lapses-exposed
+title: Change Healthcare Data Breach: Security Lapses Exposed - VIPRE
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:35:33+00:00
+---
+The breach was discovered on February 23 following the deployment of ransomware. However, the hackers had unrestricted access for more than a week prior, according to security experts, indicating a critical failure in detecting intrusions.
+
+“On February 12, criminals used compromised credentials to remotely access a Change Healthcare Citrix portal, an application used to enable remote access to desktops,” Witty noted in his testimony. “The portal did not have multifactor authentication. Once the threat actor gained access, they moved laterally within the systems more sophisticatedly and exfiltrated data.” [...] UnitedHealth CEO Andrew Witty appeared before the US House Energy and Commerce Committee following weeks of turmoil at the most significant health insurer in the country, which was marked by alarming disclosures regarding the Change Healthcare data breach.
+
+## Compromised Credentials and Absent MFA Lead to Change Healthcare Data Breach
+
+In February, attackers linked to the BlackCat/ALPHV ransomware exploited minimal security barriers at Change Healthcare. During the congressional testimony, it was disclosed that the attackers utilized stolen credentials to gain entry into Change’s Citrix framework, likely sourced from an initial access broker with no multifactor authentication (MFA). [...] American Data Security: The cyberattack at Change Healthcare highlighted the need for robust protection of sensitive health data. Since the attack, Energy and Commerce Republicans have been investigating the incident to understand its causes, prevention strategies, and ways to ensure continuous care access for Americans.
+ The Magnitude of the Breach: Change Healthcare, a major player in health payment processing, handles 15 billion medical claims annually, representing nearly 40% of all U.S. claims. The February cyberattack disrupted services, causing significant payment backlogs and severe cash flow issues in healthcare facilities, thus endangering patient care.

@@ -1,0 +1,17 @@
+source_url: https://securityblueprints.io/data-breaches/change-healthcare-february-2024-data-breach
+title: Change Healthcare February 2024 Data Breach | Security Blueprints
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:20:13+00:00
+---
+February 12, 2024: The initial breach of Change Healthcare occurred when an affiliate of ALPHV, named “Notchy,” accessed the network via Citrix remote-access software with compromised credentials, lacking multi-factor authentication. This allowed the attacker to establish a foothold.
+ February 21, 2024: Ransomware was deployed, significantly disrupting pharmacy operations and leading to data exfiltration, with sensitive client data reported as compromised.
+ March 2024: Change Healthcare disclosed a financial impact of $872 million due to the breach, approximately 6TB of sensitive data was exfiltrated.
+ April 8, 2024: A new ransomware group, RansomHub, emerged from the breach exploit after former ALPHV affiliates transitioned to this group. [...] # Attack Vector and Methodology
+
+### Initial Breach
+
+The initial breach occurred in February 2024 through the usage of compromised credentials on Citrix remote-access software that lacked multi-factor authentication (MFA). This breach was attributed to the ransomware affiliate known as “Notchy” from the ALPHV group. The absence of robust authentication measures facilitated unauthorized access to crucial systems.
+
+### Subsequent Strategies and Techniques
+
+After gaining initial access, the attackers utilized various post-compromise activities: [...] | Mandatory Hardware Second Factor | 0.8 (High) | The Change Healthcare breach primarily stemmed from compromised credentials used to access Citrix remote-access software, which lacked multi-factor authentication (MFA). The mandatory hardware second factor invariant would have required an additional hardware-based authentication step, effectively preventing unauthorized access from just having password credentials. This additional layer would have mitigated the initial breach vector, constraining the attacker from establishing a foothold using compromised usernames and passwords alone. While the breach also involved exploiting software vulnerabilities (ConnectWise ScreenConnect), these were part of the attack chain after obtaining initial access. The enforcement of a hardware second

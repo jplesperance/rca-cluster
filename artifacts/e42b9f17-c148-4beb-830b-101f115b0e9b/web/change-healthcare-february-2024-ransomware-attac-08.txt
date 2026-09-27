@@ -1,0 +1,16 @@
+source_url: https://www.reuters.com/technology/cybersecurity/unitedhealth-hackers-took-advantage-citrix-vulnerabilty-break-ceo-says-2024-04-29
+title: UnitedHealth hackers used stolen login credentials to break in, CEO says | Reuters
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:20:13+00:00
+---
+On the morning of Feb. 21, the cybercriminal gang AlphV, aka BlackCat, locked up Change Healthcare's systems and demanded a ransom to unlock them, Witty will tell the House panel, according to a copy of his written testimony posted to the panel's website on Monday.
+
+"Not knowing the entry point of the attack at the time, we immediately severed connectivity with Change’s data centers to eliminate the potential for further infection," the testimony says.
+
+The criminals used compromised login credentials to remotely access a Change Healthcare Citrix portal that did not have multi-factor authentication, according to the testimony. That portal, offered by the private tech company Citrix Systems, allows for remote access to an organisation's desktops. [...] SAN FRANCISCO, April 29 (Reuters) - (This April 29 story has been corrected to fix the headline and paragraph 1, and updated to clarify that the breach occurred due to stolen credentials, not a Citrix vulnerability, in paragraphs 5 and 6)
+
+Hackers breached UnitedHealth's (UNH.N) tech unit on Feb. 12 by using stolen login credentials that gave them remote access to its network, the largest U.S. health insurer will testify before a House panel this week.
+
+Sign up here.
+
+UnitedHealth CEO Andrew Witty's testimony before the House Energy and Commerce Committee will follow weeks of disruption to American healthcare since the insurer's Change Healthcare unit was hacked.

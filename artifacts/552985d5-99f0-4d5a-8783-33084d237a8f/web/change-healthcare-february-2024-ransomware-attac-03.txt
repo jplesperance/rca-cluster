@@ -1,0 +1,26 @@
+source_url: https://www.security.org/identity-theft/breach/change-healthcare
+title: Change Healthcare Data Breach: What Happened and ...
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:35:33+00:00
+---
+### Initial Access: A Missing Password Requirement
+
+Attackers affiliated with the ALPHV/BlackCat ransomware group first gained access to Change Healthcare’s network on February 12, 2024.3 The entry point was a Citrix remote access portal used by employees to log into systems from outside the office. That portal was not protected by multi-factor authentication, a basic security requirement widely considered industry standard.
+
+UnitedHealth Group CEO Andrew Witty confirmed this during congressional testimony, saying the missing MFA was the vulnerability that allowed the attack to succeed. He also acknowledged that Change Healthcare had not updated its internal security procedures following UnitedHealth Group’s acquisition of the company in October 2022, contributing to the gap.4 [...] That centrality is precisely what made the attack so damaging. When Change Healthcare went offline, it was not just one company’s systems that were disrupted. It was the underlying plumbing of the healthcare economy. A March 2024 survey by the American Hospital Association found that 74 percent of nearly 1,000 hospitals reported direct patient care impacts, including delays in authorizations for medically necessary care. Ninety-four percent reported financial impact. One third of respondents said the attack disrupted more than half their revenue.2
+
+## How the Attack Unfolded
+
+### Initial Access: A Missing Password Requirement [...] Keep Your Medical Information Private
+
+Remove your exposed personal information from data broker — automatically — with Incogni.
+
+Product Logo for Incogni
+
+SecurityScore:  9.7 / 10
+
+Remove Your Data  Links to Incogni
+
+### Nine Days Inside the Network
+
+After gaining access, the attackers spent nine days moving laterally through Change Healthcare’s systems before deploying ransomware. During that window, between February 17 and February 20, 2024, they exfiltrated an estimated four to six terabytes of data. On February 21, 2024, Change Healthcare detected the ransomware deployment and immediately began shutting down systems to prevent further spread.

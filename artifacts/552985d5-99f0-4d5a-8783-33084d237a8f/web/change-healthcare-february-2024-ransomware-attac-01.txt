@@ -1,0 +1,12 @@
+source_url: https://threathuntlabs.com/learn-known-cyber-attacks/change-healthcare-(2024).html
+title: Change Healthcare (2024) MITRE ATT&CK Navigator
+retrieved_via: tavily query='Change Healthcare February 2024 ransomware attack root cause initial access Citrix portal'
+retrieved_at: 2026-09-27T00:35:33+00:00
+---
+| Date/Time | Action | Actor/Details | Evidence/Impact |
+ ---  --- |
+| February 12–20, 2024 | Initial Access: Attackers gain access to Change Healthcare’s systems via a Citrix portal without MFA. | ALPHV/BlackCat ransomware group | Compromised credentials used; data exfiltrated from February 17–20. |
+| February 21, 2024 | Ransomware Deployment: BlackCat deploys ransomware, encrypting systems. | ALPHV/BlackCat | Disrupted claims processing, billing, and prescriptions; affected ~1/3 of U.S. population. |
+| February 21, 2024 | Detection: Change Healthcare identifies cyberattack, shuts down systems. | Change Healthcare | Outage reported; pharmacies, hospitals impacted nationwide. | [...] | Step 1: Initial Access (Feb 12) | Step 2: Data Exfiltration (Feb 17–20) | Step 3: Ransomware/Disruption (Feb 21) | Step 4: Detection/Containment (Feb 21) | Step 5: Recovery (Mar 2024–) |
+ ---  --- 
+| Citrix portal without MFA exploited.  What went wrong: No MFA, outdated systems. | Exfiltrated PHI of ~192.7M individuals.  Factor: No DLP, no network monitoring. | Ransomware encrypted systems, disrupted operations.  Factor: No EDR, poor segmentation. | Systems shut down, attack contained.  Factor: Rapid response, no initial SIEM. | $3.1B in recovery costs; lawsuits ongoing.  Total time: Months for full recovery. | [...] | Using 5 Whys: Why breached? Citrix portal exploited. Why exploited? No MFA. Why no MFA? Policy lapse. Why lapse? Prioritized operations. Why prioritized? Cost focus.   Other causes: Outdated systems, no DLP.   Beginners: Root causes trace to weak authentication.   Experts: Fishbone factors: Technology (no MFA), Process (no audits), People (lax policy). | Data: PHI of 192.7M stolen.   Financial: $3.1B recovery cost, $6.3B claims drop.   Operational: Nationwide healthcare disruptions.   Beginners: Impacts hit data, finances, operations.   Experts: BIA metrics: RTO months, RPO days. | Missed: Citrix access via SIEM; exfiltration via DLP.   Opportunities: MFA, EDR, network monitoring.   Failures: No MFA, no anomaly detection.   Beginners: Detection is like alarms.   Experts: Sigma rule:

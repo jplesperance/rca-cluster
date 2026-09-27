@@ -1,0 +1,97 @@
+{
+  "intake": {
+    "session_id": "552985d5-99f0-4d5a-8783-33084d237a8f",
+    "mode": "interactive",
+    "created_at": "2026-09-27T00:35:29+00:00",
+    "question": "Root cause analysis of the Change Healthcare ransomware breach",
+    "subject": {
+      "entity": "Change Healthcare / UnitedHealth Group",
+      "incident_type": "breach",
+      "date_range": null,
+      "known_facts": [],
+      "claimed_narratives": []
+    },
+    "constraints": {
+      "max_cost_usd": 15.0,
+      "max_recon_passes": 3,
+      "replan_cycles_allowed": 2
+    }
+  },
+  "graph_node": "RECON_COMPLETE",
+  "ledger": {
+    "tokens_used": 4259,
+    "cost_usd": 0.008
+  },
+  "tasks_dispatched": {
+    "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0": "complete"
+  },
+  "source_index": {
+    "S-001-a51f": {
+      "url": "https://threathuntlabs.com/learn-known-cyber-attacks/change-healthcare-(2024).html",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-01.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-002-a51f": {
+      "url": "https://www.nixonpeabody.com/insights/alerts/2025/11/12/change-healthcare-cybersecurity-breach-impact-on-healthcare-providers",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-02.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-003-a51f": {
+      "url": "https://www.security.org/identity-theft/breach/change-healthcare",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-03.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-004-a51f": {
+      "url": "https://securityblueprints.io/data-breaches/change-healthcare-february-2024-data-breach",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-04.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-005-a51f": {
+      "url": "https://nhimg.org/community/non-human-identity-management-general-discussions/lessons-from-the-change-healthcare-breach",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-05.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-006-a51f": {
+      "url": "https://www.hipaajournal.com/change-healthcare-responding-to-cyberattack",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-06.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-007-a51f": {
+      "url": "https://www.techtarget.com/cybersecurity/news/366582824/Change-Healthcare-breached-via-Citrix-portal-with-no-MFA",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-07.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    },
+    "S-008-a51f": {
+      "url": "https://vipre.com/blog/change-healthcare-data-breach-security-lapses-exposed",
+      "source_class": "general_web",
+      "credibility_tier": "speculative",
+      "content_ref": "artifacts/552985d5-99f0-4d5a-8783-33084d237a8f/web/change-healthcare-february-2024-ransomware-attac-08.txt",
+      "retrieved_at": "2026-09-27T00:35:33+00:00",
+      "from_task": "a51ffdf5-2971-42a3-be1d-cb6e8cd9d6c0"
+    }
+  },
+  "source_counter": 8,
+  "checkpoint_seq": 3,
+  "updated_at": "2026-09-27T00:35:33+00:00"
+}
