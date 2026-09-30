@@ -17,12 +17,18 @@ competing post-incident narratives — not just repeating them.
 | Sprint | Scope | State |
 |--------|-------|-------|
 | 1 | Plumbing round-trip (queue, state, artifact store, stub agent) | ✅ Complete |
-| 2 | First real recon agent (live web retrieval, credibility grading) | 🚧 Next |
-| 3 | Planner + hypothesis tree, gate-one interactive approval | Planned |
-| 4 | Correlator (claims registry, timeline, hypothesis updating) | Planned |
-| 5 | Adversarial verifier (rubric, verdicts, coverage matrix) | Planned |
+| 2 | First real recon agent (Tavily retrieval, deterministic credibility grading) | ✅ Complete |
+| 3 | General-purpose planner + hypothesis tree, auto-approved fan-out | ✅ Complete |
+| 4 | Correlator: document dedup, claims registry, timeline, hypothesis updates | 🔜 Next |
+| 5 | Adversarial verifier: rubric encoding, verdicts, coverage matrix | Planned |
 | 6 | Synthesizer + report templates (technical report / exec summary) | Planned |
 | 7 | Autonomous mode: trigger service, incident-stub resolver, revision policy | Deferred |
+
+Current capability: point the orchestrator at a breach investigation, and the
+system emits a 7-branch hypothesis tree, fans out 20 hypothesis-traced retrieval
+tasks, aggregates all results with cursor-based resumable reads, and checkpointed
+session state records the full audit trail. Full-session retrieval cost to date:
+~$0.16 (~81k corpus tokens, 160 retrieval events).
 
 See `DECISIONS.md` for the rationale ledger behind every architectural choice.
 
@@ -38,71 +44,81 @@ INTAKE → PLAN → [gate 1] → RECON (parallel fan-out) → CORRELATE
        → [gate 2] → VERIFY → SYNTHESIZE → [gate 3] → DELIVER
 ```
 
+Plan gates are currently **auto-approved** (design decision; interactive
+approval deferred). Document dedup, claims extraction, and verdicts are
+Sprint 4–5 work.
+
 **Roles**
 
-| Role | Responsibility |
-|------|----------------|
-| Orchestrator | Sole stateful component. Decomposes questions, dispatches tasks, tracks state, enforces budget caps |
-| Recon agents | Stateless collectors, one per source class (web, regulatory, technical, social...) |
-| Correlator | Timeline assembly, causal chains, hypothesis updating, contradiction flagging |
-| Adversarial verifier | Attacks the correlator's conclusions. Grades every claim |
-| Synthesizer | Renders validated findings into deliverables |
+| Role | Implementation | Responsibility |
+|------|----------------|----------------|
+| Orchestrator | ✅ `src/orchestrator/main.py` | Intake, tree emission, fan-out dispatch, result aggregation, ledger, checkpoints |
+| Recon agents | ⚠️ `recon.web` only | Stateless retrieval workers per source class |
+| Planner | ✅ `src/planner/general_planner.py` | Deterministic template: 7 fixed branches with pre-registered signals, prior-adjusted priorities |
+| Correlator | 🔜 Sprint 4 | Claims registry, timeline, hypothesis updating |
+| Adversarial verifier | 🔜 Sprint 5 | Grades every claim per the two-layer rubric |
+| Synthesizer | 🔜 Sprint 6 | Renders validated findings into deliverables |
 
 **Core disciplines**
 
-- *Claim verdicts* — five coarse states, never numeric confidence:
+- *Claim verdicts* (Sprint 5) — five coarse states, never numeric confidence:
   `corroborated · single_source · contested · unsupported · inference`.
-  Ties break downward: false "confirmed" costs more than false "needs more sources."
-- *Independence checking* — sources sharing an origin collapse to one.
-  Three outlets citing a company statement is one source, not three.
+  Ties break downward.
+- *Deterministic source grading* (Sprint 2 interim) — domain-heuristic tier
+  assignment (primary/secondary/speculative) via allowlists; placeholder for
+  the LLM-assisted rubric.
 - *Hypothesis trees* — planner pre-registers confirming/disconfirming signals
-  per branch; branches are killed or confirmed only by corroborated claims.
-  Prior probabilities drive lazy evaluation to control token spend.
-- *Full provenance* — every report claim traces: claim → verdict → sources →
-  recon task → hypothesis → plan version. Checkpoints are append-only.
+  per branch; versions are full re-emissions with changelog. Tasks trace to
+  branches via `parent_hypothesis`.
+- *Full provenance* — every retrieval traces: source → task → hypothesis →
+  tree version. Checkpoints are append-only.
 
-**Stack** — Python 3.12, Pydantic v2, Redis Streams, local Docker Compose.
-No cloud services required; model and retrieval API calls egress from the
-orchestrator and recon agents.
+**Stack** — Python 3.12, Pydantic v2, Redis Streams (consumer groups,
+at-least-once delivery, idempotent ingestion as the dedup boundary),
+Tavily search API, local Docker Compose.
 
 ---
 
 ## Quick start
 
-Prerequisites: Docker + Docker Compose.
+Prerequisites: Docker + Docker Compose, a Tavily API key.
 
 ```bash
 git clone <repo-url> && cd rca-cluster
+echo "TAVILY_API_KEY=tvly-..." > .env      # gitignored
 mkdir -p artifacts state
-docker compose up --build
+docker compose up -d redis recon-web
+docker compose run --rm orchestrator python -u -m src.orchestrator.main \
+  --question "Root cause analysis of the Change Healthcare ransomware breach" \
+  --entity "Change Healthcare / UnitedHealth Group"
 ```
 
-Expected output: the stub recon agent reports online, the orchestrator
-dispatches a demo task, the stub fabricates a realistic result, and the
-orchestrator ingests it and exits 0. Inspect afterwards:
+Expected: tree v1 emitted (8 nodes), ~20 tasks dispatched, results
+aggregated over 3–8 minutes, ending with a summary line like
+`fan-out complete: 20/20 results, ledger ~80k tokens / $0.16, 160 sources indexed`.
+
+Inspect afterwards:
 
 ```
-state/<session-id>/state.json                  # live session document
-state/<session-id>/checkpoints/NNNN_<node>.json  # append-only transition history
-artifacts/<session-id>/                        # retrieved content, by content_ref
+state/<session-id>/state.json                    # live session document
+state/<session-id>/checkpoints/NNNN_<node>.json   # append-only transition history
+state/<session-id>/hypothesis_tree_v1.json        # versioned hypothesis tree
+artifacts/<session-id>/web/                       # retrieved content with headers
 ```
-
-Re-running the orchestrator (`docker compose run --rm orchestrator`) creates a
-new session; the stub agent keeps serving from its consumer group across
-restarts.
 
 ## Configuration
 
-Retrieval API keys and model provider credentials are injected via
-environment variables at the container level (added in Sprint 2+):
+Environment variables via `.env` (gitignored) or
+`docker-compose.override.yml`:
 
-```yaml
-# docker-compose.override.yml (not committed)
-services:
-  stub-recon:
-    environment:
-      SEARCH_API_KEY: ...
-```
+| Variable | Purpose | Default |
+|----------|---------|---------|
+| `TAVILY_API_KEY` | Search provider credential | required for recon-web |
+| `TAVILY_PER_CALL_USD` | Per-query cost for ledger accounting | 0.01 |
+
+Per-session constraints (`max_cost_usd`, `max_recon_passes`,
+`replan_cycles_allowed`) ride in the intake payload. Note: ledger currently
+*records* spend; hard cap enforcement lands with Sprint 4.
 
 ## Repository layout
 
@@ -110,35 +126,63 @@ services:
 src/
 ├── common/
 │   ├── models.py      # Intake, Task/Result contracts, SessionState — the spec, executable
-│   ├── queue.py       # Redis Streams transport, consumer groups
-│   └── store.py       # Artifact store (immutable, path-guarded) + session store/checkpoints
+│   ├── queue.py       # Redis Streams transport; cursor-based session reads
+│   ├── store.py       # Artifact store + session store (append-only checkpoints)
+│   ├── retrieval.py   # Tavily wrapper: retry/backoff, provider isolation
+│   └── grading.py     # Deterministic domain-heuristic credibility tiers (interim)
+├── planner/
+│   └── general_planner.py  # Template tree builder + fan-out manifest
 ├── orchestrator/
-│   └── main.py        # Run-once demo driver (Sprint 1); planner integration lands in Sprint 3
+│   └── main.py        # CLI-driven: intake → plan → dispatch → aggregate
 └── agents/
-    └── stub_recon.py  # Round-trip proof; fabrication block replaced by real retrieval in Sprint 2
+    ├── recon_web.py   # Tavily-backed retrieval agent (role: recon.web)
+    └── stub_recon.py  # Offline integration harness (keep for testing)
 ```
+
+## Known limitations (honest inventory)
+
+- **Single physical agent** — all source classes (`regulatory`, `technical`,
+  `cve_db`, ...) route through `recon.web` via `AGENT_ROLE_MAP`. Query hints
+  differentiate directives, but per-class tooling (EDGAR, NVD APIs) is
+  Sprint 4+ work. Expect substantial URL duplication across the 160
+  retrieval events (~60–90 distinct documents).
+- **Token estimates only** — corpus tokens are len/4 heuristics; real model
+  token accounting begins in Sprint 4 with the first LLM calls.
+- **In-memory aggregation window** — result ingestion is checkpointed only
+  after the aggregation loop completes; a kill mid-loop discards ingested
+  state (results remain recoverable from the Redis stream). Per-result
+  checkpointing is queued as an immediate fix.
+- **Auto-approved gates** — no interactive plan pruning yet (deliberate;
+  interactive approval re-enters with real replan cycles).
+- **Excerpt granularity** — Tavily summaries, not full text; full-page
+  fetch with URL-hash caching is a Sprint 4 prerequisite for attribution
+  chains.
+- **Timeout math** — fan-out deadline is a flat 600s; per-task timeouts and
+  stuck-task recovery (XAUTOCLAIM/PEL) are deferred to Sprint 4.
+
+## Budget & operations
+
+Designed for a ~$100/month envelope: local hosting (~$0), retrieval
+(~$3–5/month at current session velocity and pricing), remainder reserved
+for model tokens from Sprint 4 onward. Empirical session cost to date:
+**$0.16 retrieval, ~81k corpus tokens** for a full 20-task fan-out.
 
 ## Development protocol
 
 - Every module carries a header docstring naming the contract it implements.
 - `DECISIONS.md` is the decision log; append entries with date and rationale —
   no silent reversals.
-- `ARCHITECTURE.md` holds the durable design detail; this README stays thin.
-- Checkout of a sprint branch per sprint; acceptance criteria in the sprint's
-  issue/notes before merging.
-
-## Budget & operations
-
-Designed for a ~$100/month envelope: local hosting (~$0), retrieval APIs
-(~$15), tiered model tokens (~$70–85). Per-session hard caps (cost, recon
-passes, replan cycles) are enforced by the orchestrator and carried in the
-intake payload. Async revision cycles for stale-source correction (day-7 /
-day-30 re-runs) arrive with autonomous mode.
+- Full-file replacements over fragment splices; commit working states before
+  applying changes so `git diff` catches stale lines.
+- Each sprint has written acceptance criteria checked against real runs
+  before it's marked complete.
 
 ## Roadmap
 
-- **Sprint 2** — live retrieval, source-record grading, real incident smoke test
-- **Sprint 3–6** — planner, correlator, verifier, synthesizer
+- **Sprint 4** — URL-keyed document dedup, full-text fetch with cache,
+  claims registry (first LLM calls), timeline, hypothesis updates,
+  dispatch-time cost caps
+- **Sprint 5–6** — verifier rubric, coverage matrix, synthesizer templates
 - **Autonomous mode** — breach-drop triggers (CISA, OCR portal, SEC filings),
   policy gates, versioned revision briefs
 

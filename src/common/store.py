@@ -52,6 +52,17 @@ class SessionStore:
             json.dumps(payload, indent=2)
         )
 
+    # In src/common/store.py, inside class SessionStore
+    def save_tree(self, session_id: str, tree_dict: dict) -> str:
+        """Persist a hypothesis-tree version as JSON under the session dir.
+        Returns the path written. Versioned by the caller's file naming."""
+        d = self.root / session_id
+        d.mkdir(parents=True, exist_ok=True)
+        p = d / f"hypothesis_tree_v{tree_dict['version']}.json"
+        p.write_text(json.dumps(tree_dict, indent=2))
+        return str(p)
+
+
     def load(self, session_id: str) -> SessionState:
         p = self.root / session_id / "state.json"
         return SessionState(**json.loads(p.read_text()))

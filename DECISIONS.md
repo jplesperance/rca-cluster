@@ -7,4 +7,5 @@
 - 2026-09-17: Hypothesis tree: pre-registered confirming/disconfirming signals; prior_probability drives lazy-eval (full/light/deferred); mandatory exhaustive-outcome sibling; kill/confirm require corroborated grade; separate causal-chain from co-factor branches.
 - 2026-09-17: Replans use FULL TREE RE-EMISSION with changelog, not deltas. Two-cycle cap makes re-emit token cost acceptable; consistency over patch complexity.
 - 2026-09-17: Synthesizer verdict mapping: corroborated/contested -> report body; single_source -> labeled section; inference -> commentary; unsupported -> debug log only.
-Sprint 2 accepted: Tavily integration functional; domain-heuristic grading deployed (placeholder for LLM rubric); cost placeholder calibrated against provider billing.
+- 2026-09-25: Sprint 2 accepted: Tavily integration functional; domain-heuristic grading deployed (placeholder for LLM rubric); cost placeholder calibrated against provider billing.
+- 2026-09-29: "Sprint 3 accepted: general-purpose planner (deterministic template, no LLM), auto-approved fan-out, 20-task aggregation with resumable cursor; full session cost $0.16 retrieval / ~81k corpus tokens
