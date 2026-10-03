@@ -117,7 +117,36 @@ class SessionState(BaseModel):
         default_factory=lambda: {"tokens_used": 0, "cost_usd": 0.0}
     )
     tasks_dispatched: dict[str, str] = Field(default_factory=dict)   # task_id -> status
+    task_hypotheses: dict[str, str] = Field(default_factory=dict)  # task_id -> node_id
     source_index: dict[str, dict] = Field(default_factory=dict)      # source_id -> metadata
     source_counter: int = 0
     checkpoint_seq: int = 0
     updated_at: str = Field(default_factory=_now)
+
+class ClaimRecord(BaseModel):
+    """One discrete attributed assertion extracted from the corpus. The unit the
+    verifier grades in Sprint 5. claim_type drives differential verdict standards
+    (rubric Step 1): reported_fact needs provenance; attribution needs the hardest
+    independence check; inference is analyst reasoning to be labeled as such."""
+    claim_id: str
+    text: str
+    claim_type: str            # reported_fact | attribution | inference
+    stated_by: str             # who made the assertion, per the document
+    doc_hash: str
+    source_ids: list[str]
+    relevant_hypotheses: list[str] = Field(default_factory=list)  # tree node_ids
+    date_of_event: str | None = None
+    date_published: str | None = None
+
+class ClaimsRegistry(BaseModel):
+    session_id: str
+    claims: list[ClaimRecord] = Field(default_factory=list)
+    docs_processed: int = 0
+    extraction_usage: dict = Field(default_factory=lambda: {"tokens_in": 0, "tokens_out": 0, "cost_usd": 0.0})
+
+class PriorUpdateProposal(BaseModel):
+    node_id: str
+    current_prior: float
+    suggested_prior: float
+    rationale: str
+    evidence_claim_ids: list[str]

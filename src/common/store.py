@@ -83,4 +83,5 @@ class SessionStore:
                 "content_ref": s.content_ref,
                 "retrieved_at": s.retrieved_at,
                 "from_task": result.task_id,
+                "parent_hypothesis": <lookup>,
             }

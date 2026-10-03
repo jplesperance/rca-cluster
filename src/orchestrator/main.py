@@ -77,6 +77,7 @@ def main() -> int:
             timeout_seconds=300,
         )
         state.tasks_dispatched[task.task_id] = "dispatched"
+        state.task_hypotheses[task.task_id] = parent_hyp
         bus.publish(task_stream(addressee_role), task.model_dump())
         tasks_count += 1
 
@@ -112,6 +113,7 @@ def main() -> int:
             sessions.ingest_result(state, result)
             pending.discard(result.task_id)
             completed += 1
+            sessions.save(state, f"recon_ingest_{completed}")
             print(f"[orchestrator] ingested {completed}/{len(state.tasks_dispatched)} "
                   f"({result.status}, {len(result.sources)} sources)")
     except TimeoutError:
